@@ -1,0 +1,18 @@
+{
+  "extensionName": {
+    "message": "Edge PDF Standalone Launcher",
+    "description": "The name of the extension"
+  },
+  "extensionDescription": {
+    "message": "Click to open a standalone PDF viewer in a new tab when a PDF file is opened.",
+    "description": "The description of the extension"
+  },
+  "noPdfLinks": {
+    "message": "No PDF links found in the address bar",
+    "description": "Notification message when no PDF links are found"
+  },
+  "openPdfFailed": {
+    "message": "Failed to open PDF, please try again",
+    "description": "Notification message when opening PDF fails"
+  }
+}

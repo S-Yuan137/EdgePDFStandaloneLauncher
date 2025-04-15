@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "default_locale": "en",
+  "name": "__MSG_extensionName__",
+  "description": "__MSG_extensionDescription__",
+  
+  "version": "1.0",
+  "permissions": ["activeTab", "scripting", "notifications"],
+  "host_permissions": ["file://*/*"],
+  "optional_host_permissions": ["*://*/*.pdf"],
+  "action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png", 
+      "128": "icons/icon128.png"
+    },
+    "default_title": "打开独立PDF阅读器",
+    "default_popup": ""
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "web_accessible_resources": [{
+    "resources": ["icons/*"],
+    "matches": ["<all_urls>"]
+  }]
+}

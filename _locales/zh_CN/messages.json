@@ -1,0 +1,18 @@
+{
+  "extensionName": {
+    "message": "Edge PDF 独立启动器",
+    "description": "扩展的名称"
+  },
+  "extensionDescription": {
+    "message": "当打开 PDF 文件时，点击插件按钮在新标签页中打开一个独立的 PDF 查看器。",
+    "description": "扩展的描述"
+  },
+  "noPdfLinks": {
+    "message": "当前地址栏未找到PDF链接",
+    "description": "未找到PDF链接时的通知消息"
+  },
+  "openPdfFailed": {
+    "message": "打开PDF失败，请重试。",
+    "description": "打开PDF失败时的通知消息"
+  }
+}
