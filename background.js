@@ -136,17 +136,8 @@ function isPdfUrl(url) {
   }
 }
 
-// function showNotification(message) {
-//   chrome.notifications.create({
-//     type: 'basic',
-//     iconUrl: 'icons/icon128.png',
-//     title: 'Edge PDF Standalone Launcher',
-//     message: message
-//   });
-// }
-
 function showNotification(message, tabId) {
-  // 使用页面内弹窗
+  // 优先页面内弹窗，失败时回退系统通知
   chrome.scripting.executeScript({
     target: { tabId: tabId },
     func: (message, title) => {
@@ -155,46 +146,46 @@ function showNotification(message, tabId) {
       popup.style.top = "20px";
       popup.style.right = "20px";
       popup.style.padding = "12px 16px";
-      // gray background color
       popup.style.backgroundColor = "#f5f5f5";
       popup.style.borderRadius = "8px";
       popup.style.boxShadow = "0 5px 15px rgba(0, 0, 0, 0.65)";
       popup.style.zIndex = "999999";
       popup.style.maxWidth = "300px";
       popup.style.fontFamily = "Arial, sans-serif";
-
       const titleEl = document.createElement("div");
       titleEl.textContent = title;
       titleEl.style.fontWeight = "bold";
       titleEl.style.marginBottom = "8px";
       titleEl.style.color = "#1a73e8";
-
       const messageEl = document.createElement("div");
       messageEl.textContent = message;
       messageEl.style.color = "#202124";
-
-      // 添加插件图标
       const icon = document.createElement("img");
       icon.src = chrome.runtime.getURL("./icons/icon128.png");
       icon.style.width = "48px";
       icon.style.height = "48px";
       icon.style.marginRight = "12px";
       icon.style.float = "left";
-
       popup.appendChild(icon);
-
       popup.appendChild(titleEl);
       popup.appendChild(messageEl);
       document.body.appendChild(popup);
-
-
-      // 3秒后自动消失
       setTimeout(() => {
         popup.style.opacity = "0";
         popup.style.transition = "opacity 0.3s";
         setTimeout(() => popup.remove(), 300);
       }, 3000);
     },
-    args: [message, chrome.i18n.getMessage("extensionName")], // 传递标题作为第二个参数
+    args: [message, chrome.i18n.getMessage("extensionName")],
+  }, (results) => {
+    // 如果注入失败或被 CSP 拦截，则回退为系统通知
+    if (chrome.runtime.lastError || !results || results.length === 0 || results[0].result === undefined) {
+      chrome.notifications.create({
+        type: 'basic',
+        iconUrl: 'icons/icon128.png',
+        title: chrome.i18n.getMessage("extensionName"),
+        message: message
+      });
+    }
   });
 }
